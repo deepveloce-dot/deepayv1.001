@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::namespace('Api')->name('api.')->group(function () {
 
+    // Public webhook — no authentication required
+    Route::post('webhooks/airwallex', 'DeepayController@airwallexWebhook');
+
     Route::controller('AppController')->group(function () {
         Route::withoutMiddleware('maintenance')->group(function () {
             Route::get('general-setting', 'generalSetting');
@@ -276,5 +279,18 @@ Route::namespace('Api')->name('api.')->group(function () {
 
         Route::get('logout', 'Auth\LoginController@logout');
         Route::post('add-device-token', 'UserController@addDeviceToken');
+
+        // ── Deblock-style endpoints ──────────────────────────────────────
+        Route::controller('DeepayController')->group(function () {
+            Route::get('dashboard/overview', 'overview');
+            Route::get('wallets', 'wallets');
+            Route::post('transfer', 'transfer');
+            Route::get('iban', 'iban');
+            Route::get('iban/transactions', 'ibanTransactions');
+            Route::post('payments/create', 'createPayment');
+            Route::post('withdraw', 'withdraw');
+            Route::get('transactions', 'transactions');
+        });
+        // ────────────────────────────────────────────────────────────────
     });
 });
