@@ -57,7 +57,7 @@ const FEATURES = [
     icon: Globe,
     title: 'Copertura europea',
     description:
-      'Opera in oltre 30 paesi dell'Area Euro con conti multi-valuta, conversione automatica e conformità PSD2 integrata.',
+      `Opera in oltre 30 paesi dell'Area Euro con conti multi-valuta, conversione automatica e conformità PSD2 integrata.`,
     color: '#8B5CF6',
   },
   {
@@ -97,7 +97,7 @@ const HOW_IT_WORKS = [
   {
     step: '03',
     title: 'Inizia a pagare',
-    description: 'Emetti pagamenti, approva spese e monitora il cash-flow da un'unica piattaforma.',
+    description: `Emetti pagamenti, approva spese e monitora il cash-flow da un'unica piattaforma.`,
   },
 ];
 
@@ -167,6 +167,34 @@ function FeatureCard({
       </div>
       <h3 className="font-['Outfit'] text-lg font-semibold text-white mb-2">{feature.title}</h3>
       <p className="text-sm leading-relaxed text-white/55">{feature.description}</p>
+    </motion.div>
+  );
+}
+
+/* ─────────────────────────── how it works step ───────────── */
+
+function HowItWorksStep({
+  item,
+  index,
+}: {
+  item: (typeof HOW_IT_WORKS)[0];
+  index: number;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: '-60px' });
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 30 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.55, delay: index * 0.15 }}
+      className="text-center md:text-left"
+    >
+      <div className="font-['Outfit'] text-6xl font-bold text-white/8 mb-6 select-none">
+        {item.step}
+      </div>
+      <h3 className="font-['Outfit'] text-xl font-semibold mb-3">{item.title}</h3>
+      <p className="text-white/50 leading-relaxed">{item.description}</p>
     </motion.div>
   );
 }
@@ -447,26 +475,9 @@ export default function DeepayLandingPage() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 lg:gap-16">
-            {HOW_IT_WORKS.map((item, index) => {
-              const ref = useRef<HTMLDivElement>(null);
-              const inView = useInView(ref, { once: true, margin: '-60px' });
-              return (
-                <motion.div
-                  key={item.step}
-                  ref={ref}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.55, delay: index * 0.15 }}
-                  className="text-center md:text-left"
-                >
-                  <div className="font-['Outfit'] text-6xl font-bold text-white/8 mb-6 select-none">
-                    {item.step}
-                  </div>
-                  <h3 className="font-['Outfit'] text-xl font-semibold mb-3">{item.title}</h3>
-                  <p className="text-white/50 leading-relaxed">{item.description}</p>
-                </motion.div>
-              );
-            })}
+            {HOW_IT_WORKS.map((item, index) => (
+              <HowItWorksStep key={item.step} item={item} index={index} />
+            ))}
           </div>
         </div>
       </section>
