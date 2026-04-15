@@ -100,6 +100,7 @@ const en: Record<string, string> = {
   'tab.transfer': 'Transfer',
   'tab.iban':     'IBAN',
   'tab.activity': 'Activity',
+  'tab.points':   'Points',
 
   /* ── Language dropdown ── */
   'lang.zh': '中文',

@@ -100,6 +100,7 @@ const zh: Record<string, string> = {
   'tab.transfer': '转账',
   'tab.iban':     'IBAN',
   'tab.activity': '活动',
+  'tab.points':   '积分',
 
   /* ── Language dropdown ── */
   'lang.zh': '中文',
